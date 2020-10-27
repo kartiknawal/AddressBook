@@ -34,6 +34,17 @@ namespace AddressBookProgram
                 }
             }
         }
+        public void RemoveContact(string name)
+        {
+            foreach (Contacts c in contactList)
+            {
+                if (c.firstName.Equals(name))
+                {
+                    contactList.Remove(c);
+                    return;
+                }
+            }
+        }
         public bool checkName(string firstName)
         {
             foreach (Contacts c in contactList)

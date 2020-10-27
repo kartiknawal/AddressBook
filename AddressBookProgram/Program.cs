@@ -7,12 +7,14 @@ namespace AddressBookProgram
     {
         static void Main(string[] args)
         {
+            string name = "";
             AddressBook addressBook = new AddressBook();
+
             string[] details;
             Console.WriteLine("Welcome to Address Book Program");
             while (true)
             {
-                Console.WriteLine("1.Add New Contact\n2.Edit Contact\n");
+                Console.WriteLine("1.Add New Contact\n2.Edit Contact\n3.Delete contact\n4.Exit");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
@@ -29,7 +31,8 @@ namespace AddressBookProgram
                         break;
                     case 2:
                         Console.WriteLine("Enter the name to edit");
-                        string name = Console.ReadLine();
+                        name = Console.ReadLine();
+
                         if (addressBook.checkName(name) == true)
                         {
                             Console.WriteLine("Enter the following details separated by comma");
@@ -42,6 +45,22 @@ namespace AddressBookProgram
                         {
                             Console.WriteLine("No such contact found");
                         }
+                        break;
+                    case 3:
+                        Console.WriteLine("Enter the name to be removed");
+                        name = Console.ReadLine();
+                        if (addressBook.checkName(name) == true)
+                        {
+                            addressBook.RemoveContact(name);
+                            Console.WriteLine("Contact Removed Successfully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No such contact found");
+                        }
+                        break;
+                    case 4:
+                        Environment.Exit(0);
                         break;
                 }
             }
