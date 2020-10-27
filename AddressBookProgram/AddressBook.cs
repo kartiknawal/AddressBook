@@ -8,6 +8,7 @@ namespace AddressBookProgram
     {
 
         List<Contacts> contactList;
+
         public AddressBook()
         {
             contactList = new List<Contacts>();
