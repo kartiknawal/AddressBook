@@ -2,22 +2,49 @@
 
 namespace AddressBookProgram
 {
+
     class Program
     {
         static void Main(string[] args)
         {
             AddressBook addressBook = new AddressBook();
             string[] details;
-
             Console.WriteLine("Welcome to Address Book Program");
+            while (true)
+            {
+                Console.WriteLine("1.Add New Contact\n2.Edit Contact\n");
+                int choice = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter details separated by a comma");
-            Console.WriteLine("First Name, Last Name, Address, City, State, ZipCode, Email");
-            details = Console.ReadLine().Split(",");
+                switch (choice)
+                {
 
-            addressBook.addContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
+                    case 1:
+                        Console.WriteLine("Enter details separated by a comma");
+                        Console.WriteLine("First Name, Last Name, Address, City, State, ZipCode, Email");
+                        details = Console.ReadLine().Split(",");
 
-            Console.WriteLine("Details Added");
+                        addressBook.addContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
+
+                        Console.WriteLine("Details Added");
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter the name to edit");
+                        string name = Console.ReadLine();
+                        if (addressBook.checkName(name) == true)
+                        {
+                            Console.WriteLine("Enter the following details separated by comma");
+                            Console.WriteLine("Last Name, Address, City, State, ZipCode, Email");
+                            details = Console.ReadLine().Split(",");
+                            addressBook.editContact(name, details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
+                            Console.WriteLine("Details editted successfully");
+                        }
+                        else
+                        {
+                            Console.WriteLine("No such contact found");
+                        }
+                        break;
+                }
+            }
         }
     }
 }

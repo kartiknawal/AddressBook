@@ -4,9 +4,9 @@ using System.Text;
 
 namespace AddressBookProgram
 {
-    class Contacts
+    public class Contacts
     {
-        string firstName, lastName, address, city, state, zipCode, phoneNo, eMail;
+        public string firstName, lastName, address, city, state, zipCode, phoneNo, eMail;
 
         public Contacts()
         {
