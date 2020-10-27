@@ -8,7 +8,7 @@ namespace AddressBookProgram
     {
         Dictionary<string, AddressBook> addressBooksCollection = new Dictionary<string, AddressBook>();
         public Dictionary<string, List<Contacts>> ContactByCity;
-        Dictionary<string, List<Contacts>> ContactByState;
+        public Dictionary<string, List<Contacts>> ContactByState;
         List<string> cities;
         List<string> states;
         public MultipleAddressBook()
@@ -132,7 +132,6 @@ namespace AddressBookProgram
                 Console.WriteLine("No Contact found");
             }
         }
-
 
     }
 }
