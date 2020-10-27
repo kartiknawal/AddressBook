@@ -9,11 +9,13 @@ namespace AddressBookProgram
 
         List<Contacts> contactList;
 
+
         public AddressBook()
         {
             contactList = new List<Contacts>();
+
         }
-        public string addContact(string firstName, string lastName, string address, string city, string state, string zipCode, string phoneNo, string eMail)
+        public string AddContact(string firstName, string lastName, string address, string city, string state, string zipCode, string phoneNo, string eMail)
         {
             if (CheckName(firstName, lastName) == false)
             {
@@ -23,7 +25,7 @@ namespace AddressBookProgram
             }
             return "Name already exists";
         }
-        public void editContact(string firstName, string lastName, string address, string city, string state, string zipCode, string phoneNo, string eMail)
+        public void EditContact(string firstName, string lastName, string address, string city, string state, string zipCode, string phoneNo, string eMail)
         {
             foreach (Contacts c in contactList)
             {
@@ -36,17 +38,19 @@ namespace AddressBookProgram
                     c.zipCode = zipCode;
                     c.phoneNo = phoneNo;
                     c.eMail = eMail;
+
                     return;
                 }
             }
         }
-        public void removeContact(string firstName, string lastName)
+        public void RemoveContact(string firstName, string lastName)
         {
             foreach (Contacts c in contactList)
             {
                 if (c.firstName.Equals(firstName) && c.lastName.Equals(lastName))
                 {
                     contactList.Remove(c);
+
                     return;
                 }
             }
@@ -61,6 +65,18 @@ namespace AddressBookProgram
                 }
             }
             return false;
+        }
+        public void SearchContactByCityOrState(string cityOrState)
+        {
+
+            foreach (var contact in contactList)
+            {
+                if (contact.city == cityOrState || contact.state == cityOrState)
+                {
+                    Console.WriteLine("Name :" + contact.firstName + " " + contact.lastName + "\nAddress :" + contact.address + "   ZipCode :" + contact.zipCode + "\nPhone No :" + contact.phoneNo + "   Email :" + contact.eMail);
+                }
+            }
+
         }
 
     }

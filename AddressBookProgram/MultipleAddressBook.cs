@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AddressBookProgram
 {
-    class MultipleAddressBook
+    public class MultipleAddressBook
     {
         Dictionary<string, AddressBook> addressBooksCollection = new Dictionary<string, AddressBook>();
         public MultipleAddressBook()
@@ -25,5 +25,17 @@ namespace AddressBookProgram
             }
             return null;
         }
+        public void SearchPersonOverMultipleAddressBook(string cityOrState)
+        {
+            Dictionary<string, AddressBook>.Enumerator enumerator = addressBooksCollection.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                Console.WriteLine("AddressBook Nmae :" + enumerator.Current.Key);
+                Console.WriteLine();
+                enumerator.Current.Value.SearchContactByCityOrState(cityOrState);
+                Console.WriteLine("-------------------------");
+            }
+        }
+
     }
 }

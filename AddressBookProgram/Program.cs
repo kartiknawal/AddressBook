@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace AddressBookProgram
 {
@@ -11,6 +13,7 @@ namespace AddressBookProgram
             int choice = 0;
             string[] details;
             bool flag = true;
+            string addBookName = "";
 
             MultipleAddressBook multipleAddressBooks = new MultipleAddressBook();
             AddressBook addressBook = null;
@@ -21,46 +24,48 @@ namespace AddressBookProgram
 
                 Console.WriteLine("1.Add Address Book\n2.Open Address Book");
                 choice = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter name of Address Book");
-                string addBookName = Console.ReadLine();
-                if (choice == 1)
-                {
-                    multipleAddressBooks.AddAddressBook(addBookName);
-                    addressBook = multipleAddressBooks.GetAddressBook(addBookName);
-                    flag = true;
 
-                }
-                else if (choice == 2)
+                switch (choice)
                 {
-                    addressBook = multipleAddressBooks.GetAddressBook(addBookName);
-                    flag = true;
-                    if (addressBook == null)
-                    {
-                        Console.WriteLine("No such Address Book");
+                    case 1:
+                        Console.WriteLine("Enter name of Address Book");
+                        addBookName = Console.ReadLine();
+                        multipleAddressBooks.AddAddressBook(addBookName);
+                        addressBook = multipleAddressBooks.GetAddressBook(addBookName);
+                        flag = true;
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter name of Address Book");
+                        addBookName = Console.ReadLine();
+                        addressBook = multipleAddressBooks.GetAddressBook(addBookName);
+                        flag = true;
+                        if (addressBook == null)
+                        {
+                            Console.WriteLine("No such Address Book");
+                            flag = false;
+                        }
+                        break;
+                    default:
                         flag = false;
-                    }
+                        Console.WriteLine("Invalid Choice");
+                        break;
+                }
 
-                }
-                else
-                {
-                    Console.WriteLine("Invalid choice");
-                    flag = false;
-                }
 
                 while (flag)
                 {
 
-                    Console.WriteLine("1.Add New Contact\n2.Edit Contact\n3.Remove contact\n4.Exit");
+                    Console.WriteLine("1.Add New Contact\n2.Edit Contact\n3.Remove contact\n4.Search Person By City Or State\n5.Exit");
                     choice = Convert.ToInt32(Console.ReadLine());
 
                     switch (choice)
                     {
                         case 1:
                             Console.WriteLine("Enter details separated by a comma");
-                            Console.WriteLine("First Name, Last Name, Address, City, State, ZipCode, Email");
+                            Console.WriteLine("First Name, Last Name, Address, City, State, ZipCode,Phone No Email");
                             details = Console.ReadLine().Split(",");
 
-                            string message = addressBook.addContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
+                            string message = addressBook.AddContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
 
                             Console.WriteLine(message);
                             break;
@@ -71,9 +76,9 @@ namespace AddressBookProgram
                             if (addressBook.CheckName(name[0], name[1]) == true)
                             {
                                 Console.WriteLine("Enter the following details separated by comma");
-                                Console.WriteLine("FirstName,LastName,Address, City, State, ZipCode, Email");
+                                Console.WriteLine("FirstName,LastName,Address, City, State, ZipCode,Phone No Email");
                                 details = Console.ReadLine().Split(",");
-                                addressBook.editContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
+                                addressBook.EditContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
                                 Console.WriteLine("Details editted successfully");
                             }
                             else
@@ -86,7 +91,7 @@ namespace AddressBookProgram
                             name = Console.ReadLine().Split(" ");
                             if (addressBook.CheckName(name[0], name[1]) == true)
                             {
-                                addressBook.removeContact(name[0], name[1]);
+                                addressBook.RemoveContact(name[0], name[1]);
                                 Console.WriteLine("Contact Removed Successfully");
                             }
                             else
@@ -94,7 +99,15 @@ namespace AddressBookProgram
                                 Console.WriteLine("No such contact found");
                             }
                             break;
+
                         case 4:
+                            Console.WriteLine("Enter City or State");
+                            string cityOrState = Console.ReadLine();
+
+                            multipleAddressBooks.SearchPersonOverMultipleAddressBook(cityOrState);
+                            break;
+
+                        case 5:
                             flag = false;
                             break;
                         default:
