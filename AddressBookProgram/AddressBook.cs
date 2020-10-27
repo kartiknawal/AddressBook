@@ -7,7 +7,7 @@ namespace AddressBookProgram
     public class AddressBook
     {
 
-        List<Contacts> contactList;
+        public List<Contacts> contactList;
 
 
         public AddressBook()
@@ -66,18 +66,18 @@ namespace AddressBookProgram
             }
             return false;
         }
-        public void SearchContactByCityOrState(string cityOrState)
+        public List<Contacts> GetPersonByCityOrState(string cityOrState)
         {
-
-            foreach (var contact in contactList)
+            List<Contacts> contact = new List<Contacts>();
+            foreach (Contacts c in contactList)
             {
-                if (contact.city == cityOrState || contact.state == cityOrState)
-                {
-                    Console.WriteLine("Name :" + contact.firstName + " " + contact.lastName + "\nAddress :" + contact.address + "   ZipCode :" + contact.zipCode + "\nPhone No :" + contact.phoneNo + "   Email :" + contact.eMail);
-                }
-            }
+                if (c.city.Equals(cityOrState) || c.state.Equals(cityOrState))
+                    contact.Add(c);
 
+            }
+            return contact;
         }
+
 
     }
 }

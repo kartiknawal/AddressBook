@@ -9,20 +9,19 @@ namespace AddressBookProgram
     {
         static void Main(string[] args)
         {
-            string[] name;
-            int choice = 0;
-            string[] details;
-            bool flag = true;
+
+            int choice;
             string addBookName = "";
 
             MultipleAddressBook multipleAddressBooks = new MultipleAddressBook();
+            Operations operation = new Operations();
             AddressBook addressBook = null;
 
             Console.WriteLine("Welcome to Address Book Program");
             while (true)
             {
 
-                Console.WriteLine("1.Add Address Book\n2.Open Address Book");
+                Console.WriteLine("1.Add Address Book\n2.Edit Or Add Contact in Address Book\n3.View Persons By City\n4.View Persons By State\n5.Exit");
                 choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
@@ -31,88 +30,44 @@ namespace AddressBookProgram
                         Console.WriteLine("Enter name of Address Book");
                         addBookName = Console.ReadLine();
                         multipleAddressBooks.AddAddressBook(addBookName);
-                        addressBook = multipleAddressBooks.GetAddressBook(addBookName);
-                        flag = true;
+
                         break;
                     case 2:
                         Console.WriteLine("Enter name of Address Book");
                         addBookName = Console.ReadLine();
                         addressBook = multipleAddressBooks.GetAddressBook(addBookName);
-                        flag = true;
-                        if (addressBook == null)
+
+                        if (addressBook != null)
                         {
-                            Console.WriteLine("No such Address Book");
-                            flag = false;
+                            operation.EditAddOrDeleteContact(addressBook);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("No such Adress Book");
                         }
                         break;
+                    case 3:
+                        Console.WriteLine("Enter City");
+                        string city = Console.ReadLine();
+                        multipleAddressBooks.SetContactByCityDictionary();
+
+                        multipleAddressBooks.ViewPersonsByCity(city);
+                        break;
+                    case 4:
+                        Console.WriteLine("Enter State");
+                        string state = Console.ReadLine();
+
+                        multipleAddressBooks.SetContactByStateDictionary();
+                        multipleAddressBooks.ViewPersonsByState(state);
+                        break;
+                    case 5:
+                        Environment.Exit(0);
+                        break;
+
                     default:
-                        flag = false;
                         Console.WriteLine("Invalid Choice");
                         break;
-                }
-
-
-                while (flag)
-                {
-
-                    Console.WriteLine("1.Add New Contact\n2.Edit Contact\n3.Remove contact\n4.Search Person By City Or State\n5.Exit");
-                    choice = Convert.ToInt32(Console.ReadLine());
-
-                    switch (choice)
-                    {
-                        case 1:
-                            Console.WriteLine("Enter details separated by a comma");
-                            Console.WriteLine("First Name, Last Name, Address, City, State, ZipCode,Phone No Email");
-                            details = Console.ReadLine().Split(",");
-
-                            string message = addressBook.AddContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
-
-                            Console.WriteLine(message);
-                            break;
-                        case 2:
-                            Console.WriteLine("Enter the name to edit");
-                            name = Console.ReadLine().Split(" ");
-
-                            if (addressBook.CheckName(name[0], name[1]) == true)
-                            {
-                                Console.WriteLine("Enter the following details separated by comma");
-                                Console.WriteLine("FirstName,LastName,Address, City, State, ZipCode,Phone No Email");
-                                details = Console.ReadLine().Split(",");
-                                addressBook.EditContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
-                                Console.WriteLine("Details editted successfully");
-                            }
-                            else
-                            {
-                                Console.WriteLine("No such contact found");
-                            }
-                            break;
-                        case 3:
-                            Console.WriteLine("Enter the name to be removed");
-                            name = Console.ReadLine().Split(" ");
-                            if (addressBook.CheckName(name[0], name[1]) == true)
-                            {
-                                addressBook.RemoveContact(name[0], name[1]);
-                                Console.WriteLine("Contact Removed Successfully");
-                            }
-                            else
-                            {
-                                Console.WriteLine("No such contact found");
-                            }
-                            break;
-
-                        case 4:
-                            Console.WriteLine("Enter City or State");
-                            string cityOrState = Console.ReadLine();
-
-                            multipleAddressBooks.SearchPersonOverMultipleAddressBook(cityOrState);
-                            break;
-
-                        case 5:
-                            flag = false;
-                            break;
-                        default:
-                            break;
-                    }
                 }
             }
         }
