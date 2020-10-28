@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.IO;
+using System.Linq;
 using System.Text;
-
 namespace AddressBookProgram
 {
     public class AddressBook
     {
 
         public List<Contacts> contactList;
-
+        string path = @"C:\Users\Gharat\source\repos\AddressBook\Address Book Contacts.txt";
 
         public AddressBook()
         {
@@ -107,6 +109,55 @@ namespace AddressBookProgram
             {
                 Console.WriteLine(c.ToString());
             }
+
+        }
+        public void WriteToFile(string addressBookName)
+        {
+            if (FileExitsts())
+            {
+                int count = 0;
+                Console.WriteLine(addressBookName + ":");
+                using (StreamWriter sr = File.AppendText(path))
+                {
+
+                    foreach (Contacts c in contactList)
+                    {
+                        sr.WriteLine(++count + " " + c.ToString() + "\n");
+
+                    }
+                    sr.Close();
+                }
+            }
+            else
+            {
+                Console.WriteLine("File Does Not Exist");
+            }
+
+        }
+        public void ReadFromFile()
+        {
+            if (FileExitsts())
+            {
+                using (StreamReader sr = File.OpenText(path))
+                {
+                    String s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(s);
+                    }
+                }
+
+            }
+        }
+        public void ClearFile()
+        {
+            File.WriteAllText(path, string.Empty);
+        }
+        public bool FileExitsts()
+        {
+            if (File.Exists(path))
+                return true;
+            return false;
         }
     }
 }

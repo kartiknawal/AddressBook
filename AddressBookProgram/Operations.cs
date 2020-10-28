@@ -6,7 +6,7 @@ namespace AddressBookProgram
 {
     public class Operations
     {
-        public void EditAddOrDeleteContact(AddressBook addressBook)
+        public void EditAddOrDeleteContact(AddressBook addressBook, string addressBookName)
         {
             string[] name;
             int choice = 0;
@@ -15,15 +15,15 @@ namespace AddressBookProgram
 
             while (flag)
             {
-                Console.WriteLine("------------------------------------------------------------------------");
-                Console.WriteLine("1.Add New Contact\n2.Edit Contact\n3.Remove contact\n4.Sort By Name\n5.Sort By City\n6.Sort By State\n7.Sort By ZipCode\n8.Exit");
-                Console.WriteLine("------------------------------------------------------------------------");
+
+                Console.WriteLine("1.Add New Contact\n2.Edit Contact\n3.Remove contact\n4.Sort By Name\n5.Sort By City\n6.Sort By State\n7.Sort By ZipCode\n8.Write To File\n9.Read from File\n10.Exit");
+
                 choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine("Enter the details separated by a comma");
+                        Console.WriteLine("Enter the details separated by comma");
                         Console.WriteLine("First Name, Last Name, Address, City, State, ZipCode,Phone No Email");
                         details = Console.ReadLine().Split(",");
 
@@ -38,7 +38,7 @@ namespace AddressBookProgram
 
                         if (addressBook.CheckName(name[0], name[1]) == true)
                         {
-                            Console.WriteLine("Enter the details separated by a comma");
+                            Console.WriteLine("Enter the following details separated by comma");
                             Console.WriteLine("FirstName,LastName,Address, City, State, ZipCode,Phone No Email");
                             details = Console.ReadLine().Split(",");
                             addressBook.EditContact(details[0], details[1], details[2], details[3], details[4], details[5], details[6], details[7]);
@@ -75,12 +75,19 @@ namespace AddressBookProgram
                         addressBook.SortByZipCode();
                         break;
                     case 8:
+                        addressBook.ClearFile();
+                        addressBook.WriteToFile(addressBookName);
+                        Console.WriteLine("Written to file successfully");
+                        break;
+                    case 9:
+                        addressBook.ReadFromFile();
+                        break;
+                    case 10:
                         flag = false;
                         break;
                     default:
                         break;
                 }
-
             }
         }
     }
