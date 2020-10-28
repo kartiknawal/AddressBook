@@ -110,7 +110,7 @@ namespace AddressBookProgram
             {
                 foreach (Contacts contact in ContactByCity[city])
                 {
-                    Console.WriteLine("Name :" + contact.firstName + " " + contact.lastName + "\nAddress :" + contact.address + "   ZipCode :" + contact.zipCode + "\nPhone No :" + contact.phoneNo + "   Email :" + contact.eMail);
+                    contact.ToString();
                 }
             }
             else
@@ -124,7 +124,7 @@ namespace AddressBookProgram
             {
                 foreach (Contacts contact in ContactByState[state])
                 {
-                    Console.WriteLine("Name :" + contact.firstName + " " + contact.lastName + "\nAddress :" + contact.address + "   ZipCode :" + contact.zipCode + "\nPhone No :" + contact.phoneNo + "   Email :" + contact.eMail);
+                    contact.ToString();
                 }
             }
             else
@@ -132,6 +132,5 @@ namespace AddressBookProgram
                 Console.WriteLine("No Contact found");
             }
         }
-
     }
 }
